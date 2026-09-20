@@ -9,3 +9,6 @@ readings = [
     {"name": "fridge",     "room": "kitchen", "temp": 4.2,  "online": False},
     {"name": "patio",      "room": "outside", "temp": 29.8, "online": True},
 ]
+@app.get("/devices")
+def get_devices():
+    return readings
