@@ -25,6 +25,12 @@ def get_devices():
 def get_hottest():
     return hottest(readings)
 
+def average_temp(devices):
+    total = 0
+    for device in devices:
+        total = total + device["temp"]
+    return round(total / len(devices), 2)
+
 @app.get("/devices/online")
 def get_online():
     online_devices = []
@@ -39,3 +45,7 @@ def get_device(name: str):
         if device["name"] == name:
             return device
     raise HTTPException(status_code=404, detail=f"No device called {name}")
+
+@app.get("/stats")
+def get_stats():
+    return {"average_temperature": average_temp(readings)}
