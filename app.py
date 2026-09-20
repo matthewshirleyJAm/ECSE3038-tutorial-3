@@ -9,6 +9,18 @@ readings = [
     {"name": "fridge",     "room": "kitchen", "temp": 4.2,  "online": False},
     {"name": "patio",      "room": "outside", "temp": 29.8, "online": True},
 ]
+
+def hottest(devices):
+    best = devices[0]
+    for device in devices:
+        if device["temp"] > best["temp"]:
+            best = device
+    return best
+
 @app.get("/devices")
 def get_devices():
     return readings
+
+@app.get("/devices/hottest")
+def get_hottest():
+    return hottest(readings)
